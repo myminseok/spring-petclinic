@@ -4,8 +4,25 @@ management:
      mode: full
   cloudfoundry:
     skip-ssl-validation: true
-    
+  contextPath: /manage
+  security.enabled: false
+
+logging.level.org.springframework: INFO
+
+database: hsqldb  
 spring:
   application:
     name: petclinic
-    
+  datasource.schema: classpath*:db/${database}/schema.sql
+  datasource.data: classpath*:db/${database}/data.sql
+  thymeleaf.mode: HTML
+  datasource.initialize: true
+  jpa.hibernate.ddl-auto: none
+  messages.basename: messages/messages
+  
+---
+spring:
+  profiles: cloud    
+database: mysql  
+
+  
